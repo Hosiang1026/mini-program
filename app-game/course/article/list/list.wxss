@@ -1,0 +1,29 @@
+/*每行行内元素按行分布*/
+.row {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+/*缩略图*/
+.thumb {
+    width: 100px;
+    height: 75px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+/*文章标题*/
+.title {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+    line-height: 130%;
+}
+
+/*日期*/
+.time {
+    font-size: 14px;
+    color: #999;
+    margin: 10px 0;
+}

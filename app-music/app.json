@@ -1,0 +1,29 @@
+{
+  "pages":[
+    "src/pages/online/index/index",
+    "src/pages/online/list/index",
+    "src/pages/online/search/index",
+    "src/pages/local/play"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "音乐播放器",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "borderStyle": "white",
+    "list": [{
+      "pagePath": "src/pages/online/index/index",
+      "text": "在线音乐",
+      "iconPath":"src/images/online.png",
+      "selectedIconPath":"src/images/online-s.png"
+    }, {
+      "pagePath": "src/pages/local/play",
+      "text": "正在播放",
+      "iconPath":"src/images/playing.png",
+      "selectedIconPath":"src/images/playing-s.png"
+    }]
+  },
+  "debug": false
+}

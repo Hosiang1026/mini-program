@@ -1,0 +1,14 @@
+loadArticle: function (){
+  var page_size =10;
+  // 分页
+  query.limit(page_size);
+  query.skip(that.data.page_index * page_size);
+  // 查询所有数据
+  query.find({
+    success: function (results){
+      // 请求成功将数据存入article_list
+      that.setData({
+        article_list: that.data.article_list.concat(results)
+      });
+    });
+  }
