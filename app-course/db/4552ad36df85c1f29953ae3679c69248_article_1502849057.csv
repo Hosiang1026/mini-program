@@ -1,0 +1,1088 @@
+thumb,priority,content,title
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,9,"### 目的
+
+竞争对手分析，了解淘宝装修市场上线了多少无线模板设计师
+
+### 步骤
+
+1. 找到目标页面
+
+https://zxn.taobao.com/wei_template_list.htm?p=1
+
+至
+
+https://zxn.taobao.com/wei_template_list.htm?p=870
+
+2. 取出html源文件
+
+```
+$html = file_get_contents(""https://zxn.taobao.com/wei_template_list.htm?p=$i"");
+```
+
+3. 利用正则来解析html
+
+```
+	$start = ""\/\/zxn.taobao.com\/designer_detail\.htm\?designerId="";
+	$end = ""\"">"";
+	preg_match_all(""/$start(\d+)$end/"", $html, $matches);
+```
+
+取matches[1]得到设计师的id号
+
+```
+array(20) {
+  [0]=>
+  string(7) ""1038354""
+  [1]=>
+  string(7) ""1029480""
+  [2]=>
+  string(7) ""1036438""
+  [3]=>
+  string(5) ""14040""
+  ...
+  [18]=>
+  string(7) ""1033337""
+  [19]=>
+  string(5) ""75477""
+}
+```
+4. 遍历分页迭加得所有的设计id号数组
+
+4.1 先声明一个空数组用来不加的merge用
+
+```
+$designer_id_array = [];
+```
+
+4.2 然后在循环体中合并数组
+
+```
+for ($i = 1; $i <= $page ; $i++) {
+	$designer_id_array = array_merge($designer_id_array, $matches[1]);
+}
+```
+
+4.3 让$page=2验证结果
+
+```
+
+array(40) {
+  [0]=>
+  string(7) ""1038354""
+  [1]=>
+  string(7) ""1029480""
+  [2]=>
+  string(7) ""1036438""
+  [39]=>
+  string(5) ""40890""
+}
+
+```
+
+5. 对数组元素去重复
+
+```
+array_unique($designer_id_array)
+```
+6. sizeof()求数组长度
+
+echo '无线设计师人数为：' . sizeof($designer_id_array);
+
+运行10分钟出来答案是268，截止2017年无烟日。
+
+### 大功告成
+
+代码没多讲究，只为实现我自己要的功能。
+
+下载地址：[https://git.oschina.net/laeser/spider](https://git.oschina.net/laeser/spider)",PHP+正则抓取淘宝装修市场设计师数据
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,22,"##安装 Gateway过程
+
+1、下载gateway zip包linux版，http://www.workerman.net/download
+
+2、使用Mac自带的php无效，报`Please install pcntl extension. See http://doc3.workerman.net/appendices/install-extension.html`，没有去深究怎么安装扩展，而是改用了xmapp的可以
+
+3、尝试使用小程序连接，小程序没有执行没有报错
+原因是：协议写错，正确写法是ws://，我错写成wss://
+
+4、Error during WebSocket handshake: Invalid status line
+原因是web socket 协议不一样，导致不通，workerman demo自带的的text协议，用于telnet调试
+![](http://upload-images.jianshu.io/upload_images/2599324-ff775271c22e3ad2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+通过改动start_gateway.php第21行
+
+```
+$gateway = new Gateway(""websocket://0.0.0.0:8282"");
+```
+
+于是就成功了
+
+![](http://upload-images.jianshu.io/upload_images/2599324-21e50a270f22aee7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+5、通过onSocketMessage接收服务端发来的消息
+
+![](http://upload-images.jianshu.io/upload_images/2599324-a9d75ff0d7e7262f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 小程序代码：
+```
+onLoad: function () {
+    wx.connectSocket({
+      url: 'ws://127.0.0.1:8282',
+      success: function (res) {
+        console.log('连接成功')
+      },
+      fail: function (res) {
+        console.log('连接失败')
+      }
+    })
+
+    wx.onSocketOpen(function(res) {
+      console.log('WebSocket连接已打开！')
+      wx.sendSocketMessage({
+        data: ""huangxj""
+      })
+    })
+
+    wx.onSocketError(function(res){
+      console.log('WebSocket连接打开失败，请检查！')
+    })
+
+    wx.onSocketMessage(function(res) {
+      console.log('收到服务器内容：' + res.data)
+    })
+
+  }
+```
+
+顺便记录2条关于php的命令
+
+`php --ini` 查看php.ini所在目录
+`php -m` 查看已安装哪些扩展
+
+小程序源码地址：[http://git.oschina.net/dotton/demo-wx](http://git.oschina.net/dotton/demo-wx)，即时通信文件夹下",小程序对接WebSocket扫盲（PHP后端）
+http://upload-images.jianshu.io/upload_images/2599324-f0932f815a629f4a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240,8,"### 解决的哪些痛点
+
+1、反复扫码登录，只为看一眼与回复一条信息
+2、粉丝发来消息不知道，想回的时候还可以已过期回不了，要经常登录去看吧，又常常扑了个空
+3、粉丝发来的图片，手机版的公众号安全助手上看不了，必须登录PC版后台
+
+![消息提醒.jpg](http://upload-images.jianshu.io/upload_images/2599324-f0932f815a629f4a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 于是就做了这个消息助手
+1、一次授权，长期使用，免去反复登录的麻烦
+2、有消息，第一时间通知
+3、随时查看消息并回复，且到长久保留消息记录
+
+![聊天窗口.png](http://upload-images.jianshu.io/upload_images/2599324-b393dc57c4557c12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 使用流程
+1、在**PC浏览器**中，打开网站 www.xiaoxizhushou.com
+点击开始使用按钮。
+2、扫描页面上的二维码。
+3、待页面跳转后，再扫描授权的二维码。
+
+关注我们公众号，点击菜单进入我们的小程序‘消息助手’就可以管理你的公众号啦！
+
+![PC端授权.png](http://upload-images.jianshu.io/upload_images/2599324-82a02404fc736920.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 消息助手还支持同时管理多个公众号
+
+![公众号列表.png](http://upload-images.jianshu.io/upload_images/2599324-9511dc0cc708a414.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 消息对话一目了然，还能保留消息记录，方便随时翻看，且带有红点未读提示
+
+![会话列表.png](http://upload-images.jianshu.io/upload_images/2599324-92cae263e8756245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 如果半夜不想被吵到，还可以设置勿扰模式，以及针对单个粉丝的免提醒
+
+![勿扰模式.png](http://upload-images.jianshu.io/upload_images/2599324-a4f459ebc7a54109.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 最后再附上操作视频演示
+
+##### 授权过程操作演示
+
+[https://v.qq.com/x/page/k0512hqume5.html](https://v.qq.com/x/page/k0512hqume5.html)
+##### 小程序使用过程操作演示
+[https://v.qq.com/x/page/o0512ros6hz.html](https://v.qq.com/x/page/o0512ros6hz.html)",这个小程序能让你的公众号实时接收回复粉丝消息
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,2,"### 上拉加载状态有
+提示上拉加载
+显示没有更多内容
+
+### 步骤
+
+1.起一个view在列表的最末尾
+
+```
+<view class=""loading-indicator"">
+	{{loadingTip}}
+</view>
+```
+
+2.添加样式
+
+```
+.loading-indicator {
+	text-align: center;
+	font-size: 12px;
+	margin: 10px 0;
+}
+```
+
+3.js代码实现
+
+```
+onReachBottom: function () {
+	setTimeout(function () {
+		// 为页数迭加1
+		that.getGoods(that.category, ++pageIndex);
+	}, 300);
+},
+```
+
+上拉动作太灵敏，LeanCloud服务器太快，于是放个在延时300ms。
+
+在请求数据的方法getGoods中加一段判断代码，用来显示""没有更多内容""，代替掉初始值""loadingTip: '上拉加载更多'""
+
+```
+if (goods.length < pageSize) {
+	that.setData({
+		loadingTip: '没有更多内容'
+	});
+}
+```
+
+源码下载：[http://git.oschina.net/dotton/lendoo-wx](http://git.oschina.net/dotton/lendoo-wx)，本文涉及代码存于/pages/goods/detail文件夹中。",微信小程序上拉分页底部显示加载状态
+http://upload-images.jianshu.io/upload_images/2599324-fe9ee63be8fb86a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240,20,"大概花费4个小时，不需要掌握后端开发，实现问答小程序Demo。
+
+这不是真正意义上的教程，它是全程开发的实录。
+
+### 视频章节
+
+[0、简单介绍与预览](http://v.qq.com/x/page/v0518azeo0e.html)
+
+[1、建立列表页与跳转按钮](http://v.qq.com/x/page/c05185leekm.html)
+
+[2、提问页面的布局与样式](http://v.qq.com/x/page/q0518bpiicf.html)
+
+[3、提交字符串数据到Bmob](http://v.qq.com/x/page/e0518wqf06b.html)
+
+[4、多图上传](http://v.qq.com/x/page/p0518ns7f07.html)
+
+[5、多图上传不覆盖与图片预览](http://v.qq.com/x/page/r0518qvdrgl.html)
+
+[6、删除图片](http://v.qq.com/x/page/i0518nsfzu8.html)
+
+[7、列表页读取数据](http://v.qq.com/x/page/j0518kwq8d2.html)
+
+[8、跳转读取回答页面及它的布局](http://v.qq.com/x/page/s0518hgrho8.html)
+
+[9、回答页面的样式](http://v.qq.com/x/page/x05181tump4.html)
+
+[10、集成Bmob用户登录](http://v.qq.com/x/page/y0518mjj43u.html)
+
+[11、对注册方式一的登录补充](http://v.qq.com/x/page/d0518n7w25g.html)
+
+[12、关联对象链接访问无效的替代方案](http://v.qq.com/x/page/u0518fzkp88.html)
+
+[13、Bmob用户注册方式二](http://v.qq.com/x/page/i0518zjdk7x.html)
+
+[14、细节拾遗](http://v.qq.com/x/page/h0518yhlmqi.html)
+
+[15、源码下载以及数据导入](http://v.qq.com/x/page/p0518b29nch.html)
+
+![回答.png](http://upload-images.jianshu.io/upload_images/2599324-fe9ee63be8fb86a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+由于我也是第一次使用Bmob开发小程序，意图在于记下每一次的踩坑，因此过程比较冗长，适合快进着看完。
+
+### 技能要点
+
+1、怎么使用Bmob快速实现自己的一个idea
+2、基本的CRUD、关联表以及多图上传
+3、Bmob集成用户登录
+4、Mina框架高频的组件与API的使用
+
+![提问.png](http://upload-images.jianshu.io/upload_images/2599324-c683bc85c72b767d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+### 如何导入项目
+
+可以参考我之前的文章：[http://blog.it577.net/archives/32/](http://blog.it577.net/archives/32/)
+
+白名单配置为你的Bmob AppId 加个bmobcloud.com
+
+源码托管地址：http://git.oschina.net/laeser/course
+
+
+![列表.png](http://upload-images.jianshu.io/upload_images/2599324-9df6beb5d43b9d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+对移动开发有兴趣的朋友可以关注我的公众号【huangxiujie85】，第一时间获取博文推送
+。
+
+![公众号huangxiujie85](https://static.oschina.net/uploads/img/201610/07111145_qD6d.jpg ""二维码"")",基于Bmob开发问答小程序Demo实录[视频] 
+http://blog.it577.net/usr/uploads/2017/06/1342396935.gif,11,"![copyright.gif][1]
+
+
+  [1]: http://blog.it577.net/usr/uploads/2017/06/1342396935.gif
+
+### 创建方法
+
+Tools->Developer->New Snippet
+
+### 配置内容
+
+Sublime自动帮我们创建好一个模板文件
+
+将它成自己想要的内容如下
+
+```
+<snippet>
+	<content><![CDATA[
+/**
+ *
+ * 配套视频教程请移步微信->小程序->灵动云课堂
+ * 关注订阅号【huangxiujie85】，第一时间收到教程推送
+ *
+ * @link http://blog.it577.net
+ * @author 黄秀杰
+ */
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>copyright</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
+
+```
+
+### 保存于如下路径
+
+`/Users/huangxiujie/Library/Application Support/Sublime Text 3/Packages/User/copyright.sublime-snippet`
+
+经过上述3个步骤后，在sublime中只要输入cop，就会提示出copyright的关键字，按tab或enter就可以在代码中嵌入刚刚那段内容了。
+",Sublime使用snippet实现快速输入代码块
+http://blog.it577.net/usr/uploads/2017/06/302294712.png,5,"![ellipsis.png][1]
+
+用于商品名太长显示不下的场景
+
+控制只显示2行，并以省略号结束
+
+```
+	text-overflow: ellipsis; 
+	display: -webkit-box;  
+	-webkit-line-clamp: 2;  
+	-webkit-box-orient: vertical; 
+```
+
+同理，3行4行都是不在话下
+
+对于平时只显示一行的，代码要更加简单一些
+
+```
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+```
+
+在微信小程序中，对`view`与`text`均有效。
+
+参考了文章
+
+1.[http://blog.csdn.net/this_itboy/article/details/51799086](http://blog.csdn.net/this_itboy/article/details/51799086)
+
+2.[http://www.divcss5.com/rumen/r532.shtml](http://www.divcss5.com/rumen/r532.shtml)
+
+
+  [1]: http://blog.it577.net/usr/uploads/2017/06/302294712.png",使用css控制文本只显示2行防止溢出
+http://upload-images.jianshu.io/upload_images/2599324-aa5961d5ed9cf95d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240,21,"### 实现以下技能点
+
+**1、集成Bmob小程序SDK作为数据存储**
+**2、wemark解析markdown文本**
+**3、列表页布局与上拉无限加载**
+
+实现的效果
+
+![](http://upload-images.jianshu.io/upload_images/2599324-6b73f742fca79b0c.gif?imageMogr2/auto-orient/strip)
+### 一、创建Bmob应用
+
+进入Bmob官网：[http://bmob.cn/](http://bmob.cn/)，注册一个账号，免费的账号可以创建8个子应用，每个应用单表列数是20列，如要购买付费，可以分别买100元与1000元档，详见官网价目表。
+
+![](http://upload-images.jianshu.io/upload_images/2599324-3c116275f6490105.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**1、创建一个应用**
+
+![](http://upload-images.jianshu.io/upload_images/2599324-642113b8a424611e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**2、查看它的key信息以及配置自己小程序的key信息，如果有支付的，加配支付MchID与key，支付对于付费会员才可用。**
+
+![](http://upload-images.jianshu.io/upload_images/2599324-979efe109706ca8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**3、进入网址：[http://docs.bmob.cn/data/wechatApp/a_faststart/doc/index.html](http://docs.bmob.cn/data/wechatApp/a_faststart/doc/index.html)，来查阅小程序文档**
+
+![](http://upload-images.jianshu.io/upload_images/2599324-acd4e840f8aae6ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**4、为小程序添加白名单**
+在小程序管理后台，进入设置->开发设置->服务器域名，为4个域名统一添加地址为api.bmob.cn。
+
+![](http://upload-images.jianshu.io/upload_images/2599324-8c9f2d682494a498.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+这事实是不对了，真正在填写的要等小程序报错时才知道，如下图
+
+
+![1-2报白名单错误.png](http://upload-images.jianshu.io/upload_images/2599324-2427429b07f6309a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+于是删除掉之前的填写的白名单api.bmob.cn，而使用Bmob AppId+bmobcloud.com作为域名白名单，比如我是便是：[4552ad36df85c1f29953ae3679c69248.bmobcloud.com](https://4552ad36df85c1f29953ae3679c69248.bmobcloud.com)
+，小程序以前是1月允许3次修改白名单，目前是1个月允许5次，少走一些弯路可以节省一些次数的。
+
+下图是我更正后的配置信息
+
+![](http://upload-images.jianshu.io/upload_images/2599324-b57d40d7f956ebb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 二、小程序端集成
+
+**1、创建小程序项目，appid使用的就是刚刚配置在Bmob后台的那个appid。**
+
+![](http://upload-images.jianshu.io/upload_images/2599324-23d396fdf883a468.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**2、打开app.js引入bmob的js sdk库，并初始化**
+
+```
+var Bmob = require('utils/bmob.js');
+Bmob.initialize(""你的Application ID"", ""你的REST API Key"");
+```
+
+sdk下载地址是：https://github.com/bmob/bmob-WeApp-sdk
+
+### 三、读取文章列表
+
+由于没有写专门的web后台，于是直接在bmob的后台可视化界面录入
+
+**1、建表与字段**
+
+字段名 | 类型 | 注释
+--------  | ------ | --------
+title | String | 标题
+content | String  | 内容
+priority | Number | 越大越靠前
+
+
+![1-3建表与字段.png](http://upload-images.jianshu.io/upload_images/2599324-137b8473f474c24d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**2、根目录下新建article目录，再新建list文件夹，下面放着list.wxml、list.wxss与list.js**
+
+![1-4目录结构.png](http://upload-images.jianshu.io/upload_images/2599324-9b44c7f389f20099.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+注意要将刚刚创建的页面文件添加到app.json中
+
+```
+{
+    ""pages"":[
+        ""article/list/list""
+    ]
+}
+```
+
+**3、引入bmob.js文件，读取所有的文章列表列表**
+
+```
+var Bmob = require('../../utils/bmob.js');
+var that;
+Page({
+	onLoad: function () {
+		that = this;
+		var Article = Bmob.Object.extend(""article"");
+		var query = new Bmob.Query(Article);
+		// 按照priority逆序排列
+		query.descending('priority');
+		// 查询所有数据
+		query.find({
+			success: function(results) {
+				// 请求成功将数据存入article_list
+				that.setData({
+					article_list: results
+				});
+			},
+			error: function(error) {
+				alert(""查询失败: "" + error.code + "" "" + error.message);
+			}
+		});
+	}
+});
+```
+
+定义一个全局的that变量，以解决异步请求时作用域改变的问题，以后的每一个方法都使用that以代替this。
+
+**4、制作列表页布局文件与样式**
+
+```
+<!-- 遍历文章列表 -->
+<view wx:for=""{{article_list}}"" class=""row"" wx:key="""">
+	<!-- 缩略图 -->
+	<view>
+		<image src=""{{item.thumb}}"" class=""thumb"" mode=""aspectFill"" />
+	</view>
+	<!-- 标题与日期 -->
+	<view>
+		<!-- 标题 -->
+		<view class=""title"">{{item.title}}</view>
+		<!-- 日期 -->
+		<view class=""time"">{{item.updatedAt}}</view>
+	</view>
+</view>
+```
+
+其中图片使用了aspectFill模式，保证了图片不变形且是填充满`<image>`标签的；且`<image>`需要包在`<view>`中，不然css设定的宽度无效，仅高度有效。
+
+
+![](http://upload-images.jianshu.io/upload_images/2599324-aa5961d5ed9cf95d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+```
+/*每行行内元素按行分布*/
+.row {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+}
+
+/*缩略图*/
+.thumb {
+	width: 100px;
+	height: 75px;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+/*文章标题*/
+.title {
+	font-size: 16px;
+	color: #333;
+	margin: 10px 0;
+	line-height: 130%;
+}
+
+/*日期*/
+.time {
+	font-size: 14px;
+	color: #999;
+	margin: 10px 0;
+}
+```
+
+使用了flex布局作为左右排列与上下排列的控制。其中缩略图与文本呈左右排列， 标题与日期呈上面排列。
+
+### 四、列表页分页
+
+刚刚实现的列表是读取的全部，一般来讲会有上拉加载的效果，也就是分页
+
+**1、通过skip与limit实现分页**
+
+将请求代码独立出一个成员方法loadArticle()，以方便下拉加载与onLoad加载是共用
+
+```
+loadArticle: function () {
+	var page_size = 10;
+	...
+	// 分页
+	query.limit(page_size);
+	query.skip(that.data.page_index * page_size);
+	// 查询所有数据
+	query.find({
+		success: function(results) {
+			// 请求成功将数据存入article_list
+			that.setData({
+				article_list: that.data.article_list.concat(results)
+			});
+	});
+}
+```
+
+使用concat方法将分页请求得到数组合并入原始数组，以求不断迭加。
+
+```
+onReachBottom: function () {
+	that.setData({
+		page_index: ++that.data.page_index
+	});
+	that.loadArticle();
+}
+```
+
+实现onReachBottom方法加page_index不断加1，使页码递增后，再请求Bmob数据。
+
+**2、底部加上加载状态的文本显示**
+
+页面上加一个`<view>`
+
+```
+<view class=""loading-indicator"">
+	{{loadingTip}}
+</view>
+```
+
+配上样式
+
+```
+/*上拉加载提示*/
+.loading-indicator {
+	text-align: center;
+	font-size: 12px;
+	margin: 10px 0;
+}
+```
+
+js文件如下处理
+
+```
+data: {
+      loadingTip: '上拉加载更多'
+}
+```
+
+声明好loadingTip数据后，如果本次请求返回的行数小于每页行数代表是否还有更多数据（粗略的算法，更合理地做法是多请求一行例如11行，返回不够数了才是真没有下一页了）
+
+```
+// 判断上拉加载状态
+if (results.length < page_size) {
+	that.setData({
+		loadingTip: '没有更多内容'
+	});
+}
+```
+
+### 五、制作详情页
+
+**1、处理带参跳转**
+
+首先，为.row行添加一个点击事件
+
+```
+<view wx:for=""{{article_list}}"" class=""row"" wx:key="""" bindtap=""showDetail"" data-index=""{{index}}"">
+```
+
+然后，取出wxml绑定的数值，设置跳转路径
+
+```
+showDetail: function (e) {
+	// 获取wxml元素绑定的index值
+	var index = e.currentTarget.dataset.index;
+	// 取出objectId
+	var objectId = that.data.article_list[index].id;
+	// 跳转到详情页
+	wx.navigateTo({
+		url: '../detail/detail?objectId=' + objectId
+	});
+}
+```
+
+最后，在article目录创建detail文件夹，除创建同上页面3个文件外，再创建一个.json文件，配置页面标题栏文本显示
+
+```
+{
+	""navigationBarTitleText"": ""文章详情""
+}
+```
+
+**2、detail页面接收参数**
+
+```
+Page({
+	onLoad: function (options) {
+		// 获取传参
+		var objectId = options.objectId;
+	}
+})
+```
+
+**3、取出文章数据**
+
+以objectId为参数，向Bmob请求文详情数据
+
+```
+var Bmob = require('../../utils/bmob.js');
+var that;
+
+Page({
+	data: {
+		content: ''
+	},
+	onLoad: function (options) {
+		that = this;
+		// 获取传参
+		var objectId = options.objectId;
+		// 向Bmob请求详情页数据
+		var Article = Bmob.Object.extend(""article"");
+		//创建查询对象，入口参数是对象类的实例
+		var query = new Bmob.Query(Article);
+		//查询单条数据，第一个参数是这条数据的objectId值
+		query.get(objectId, {
+			success: function(result) {
+			    // 查询成功，调用get方法获取对应属性的值
+			    var content = result.get(""content"");
+			    that.setData({
+			    	content: content
+			    });
+			},
+			error: function(object, error) {
+			    // 查询失败
+			}
+		});
+	}
+})
+```
+
+**4、渲染页面**
+
+![](http://upload-images.jianshu.io/upload_images/2599324-ca1efbddb1d40f89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+```
+<view class=""container"">
+	<view class=""title"">{{article.title}}</view>
+	<view class=""time"">{{article.updatedAt}}</view>
+	<view class=""content"">{{article.content}}</view>
+</view>
+```
+
+外层包裹一个container是为了设置边距，美化页面。
+
+```
+/*外部容器*/
+.container {
+	margin: 20px 10px;
+}
+
+/*标题*/
+.title {
+	text-align: center;
+	color: #333;
+	font-size: 20px;
+	margin: 10px 0;
+}
+
+/*日期*/
+.time {
+	text-align: center;
+	color: #999;
+	font-size: 12px;
+	margin: 10px 0;
+}
+
+/*内容*/
+.content {
+	margin: 20px 0;
+	font-size: 14px;
+	color: #555;
+	line-height: 140%;
+}
+```
+
+如此，已经顺利获取到了详情页内容并显示出来了。剩下就是将markdown转为正常的显示。
+
+
+### 六、利用wemark渲染文章
+
+有大牛写好了一个针对小程序的markdown解析库，下载是[https://github.com/TooBug/wemark](https://github.com/TooBug/wemark)
+
+接下来按照git上的教程集成wemark。
+
+**1、wxml引入**
+
+```
+<import src=""../../wemark/wemark.wxml""/>
+<template is=""wemark"" data=""{{...wemark}}""></template>
+```
+
+删除原来的`<view class=""content"">{{article.content}}</view>`，因为不再用到它了。
+
+
+**2、wxss引入**
+
+```
+@import '../../wemark/wemark.wxss'
+```
+
+**3、js中引入**
+
+```
+var wemark = require('../../wemark/wemark');
+```
+
+然后设定数据
+
+```
+	data: {
+		wemark: {}
+	},
+```
+
+再在请求Bmob成功回调里加上
+
+```
+// 渲染markdown
+wemark.parse(result.get('content'), that, {
+    imageWidth: getApp().screenWidth - 20
+})
+```
+
+效果如下
+
+![](http://upload-images.jianshu.io/upload_images/2599324-6910d124861862b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+这个例子是比较简单的，但是做复杂的基础，诸如flex布局，data存储，navigate传值，无限加载，可以说是必然会用到的，对于没有接触过小程序开发的朋友应该是有借鉴意义的。",基于Bmob从零开始写一个博客小程序
+http://upload-images.jianshu.io/upload_images/2599324-f198488aa9bdc4f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240,7,"首先创建一个LeanCloud账号
+
+![0.使用邮箱注册.png](http://upload-images.jianshu.io/upload_images/2599324-c8599cf36b5731f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![1.创建应用.png](http://upload-images.jianshu.io/upload_images/2599324-68e0d0e98cd6ef35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![2.进入存储.png](http://upload-images.jianshu.io/upload_images/2599324-f198488aa9bdc4f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![3.点击导入.png](http://upload-images.jianshu.io/upload_images/2599324-adf211175d90f270.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![4.导入界面.png](http://upload-images.jianshu.io/upload_images/2599324-78aef31b1e8970ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![5.逐一导入.png](http://upload-images.jianshu.io/upload_images/2599324-e76221e302e32d2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![6.绑定小程序app密钥.png](http://upload-images.jianshu.io/upload_images/2599324-64481f8b3406d243.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![7.提取LeanCloud密钥.png](http://upload-images.jianshu.io/upload_images/2599324-b5a24904fd21e976.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![8.代码app.js换掉LeanCloud密钥.png](http://upload-images.jianshu.io/upload_images/2599324-6a32f8855fafbbf3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![9.部署成功.png](http://upload-images.jianshu.io/upload_images/2599324-a58da75c784cdf33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**常见问题**
+
+1、提示404错误
+检查是不是没有将LeanCloud数据请求的域名添加小程序后台白名单，白名单设置教程参见：[https://leancloud.cn/docs/weapp-domains.html](https://leancloud.cn/docs/weapp-domains.html)
+
+以下是我的白名单
+
+![我的白名单.png](http://upload-images.jianshu.io/upload_images/2599324-5f75e8f73c1f7570.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+2、后端如何部署
+
+部署方式有2种，分别是git方式与lean-cli命令行方式，前者可以参见我之前的教程：[https://my.oschina.net/huangxiujie/blog/817038](https://my.oschina.net/huangxiujie/blog/817038)，后者可以参见官方教程：[https://leancloud.cn/docs/leanengine_quickstart.html#部署到云端](https://leancloud.cn/docs/leanengine_quickstart.html#部署到云端)
+
+3、可以部署到自己的服务器吗
+
+可以，但推荐直接使用LeanCloud提供的，不用关心https证书的问题，LC也是提供自己的二级域名直接用
+
+4、LeanCloud免费吗
+
+我一直是用免费版，起步阶段够用。
+
+免费版会强制休眠，预算够就买商业版的，可以绑顶级域名，有提供开发环境与生产环境2种环境，只是一天30元有点小贵。就看开发成本与运维成本之间，自己作出衡量了。
+
+5、怎么将appid/appsecret换成自己的
+
+小程序端的密钥配置文件在app.js中；php后端的在application/config/hooks.php文件中
+
+6、源码下载地址
+
+小程序端托管在[http://git.oschina.net/dotton/lendoo-wx](http://git.oschina.net/dotton/lendoo-wx)
+
+php后端托管在[http://git.oschina.net/dotton/lendoo-web](http://git.oschina.net/dotton/lendoo-web)
+
+如果有不明白的同学，可以在分答上找我提问。",部署灵动云商到LeanCloud[图解]
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,4,"LeanCloud给的日期是ISO格式，比如2017-06-05T14:08:20.589Z，直接显示在页面上体验不好。
+
+凡是有关日期的，格式化、计算，用moment就够了。
+
+**1.下载**
+
+`http://momentjs.com/`
+
+选moment.min.js版本，因为没有用到国际化的东西，体积省点是一点。
+
+**2.集成**
+
+将moment.min.js放在小程序工程的utils目录下
+
+**3.调用**
+
+```
+const moment = require('moment.min.js');
+moment.locale('en', {
+	longDateFormat : {
+		l: ""YYYY-MM-DD"",
+		L: ""YYYY-MM-DD HH:mm""
+	}
+});
+item.createdAt = moment(item.createdAt).format('L');
+```
+
+自定义一个长日期格式，方便外部调用，当然写作format('YYYY-MM-DD');也是没问题的，只是外部传参没有传一个'l'或'L'来得简洁
+
+**一点说明**
+
+一般自己写后端，约定的做法在是api格式好了再传给前端，而实际开发中用的是LeanCloud的JS库，能给的日期只能是ISO格式，而小程序的wxml偏偏还没弱，不能像主流MVVM框架那样提供filter/compute之类的过滤器，只有每每在.js中将数据遍历格式好了，再发给wxml渲染，例如
+
+```
+that.setData({
+    donateObjects: utils.dateFormat(donateObjects, 'l')
+});
+```
+
+源码下载：[http://git.oschina.net/dotton/lendoo-wx](http://git.oschina.net/dotton/lendoo-wx)，本文涉及代码存于/pages/utils/utils.js文件中。
+",小程序中利用Moment.js格式时间
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,1,"分隔符\n对`<text>`有效，而对于`<view>`无效。
+
+例如：`<view>`hello\nworld`</view>`对显示为hello world，不会换行",微信小程序中<view>与<text>对于\n回车换行车符表现不同
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,3,"经过摸索，与官方提供的slim无异，同样使用__invoke魔法函数即可，步骤如下：
+
+**1.config.php打开hook，即设置$config['enable_hooks'] = TRUE;**
+
+详情文档参见：http://codeigniter.org.cn/user_guide/general/hooks.html
+
+**2.在hook.php中实现**
+
+```
+<?php
+
+require_once __DIR__ . '/../third_party/wxpay/WxPay.Api.php';
+
+use \LeanCloud\Engine\LeanEngine;
+use \LeanCloud\Engine\Cloud;
+use \LeanCloud\Client;
+use \LeanCloud\Storage\CookieStorage;
+/*
+ * Define cloud functions and hooks on LeanCloud
+ */
+
+// /1.1/functions/sayHello
+Cloud::define(""pay"", function($params, $user) {
+	// var_dump($user);
+	$openid = $user->get('authData')[""lc_weapp""][""openid""];
+	// 		初始化值对象
+	$input = new WxPayUnifiedOrder();
+	// 		文档提及的参数规范：商家名称-销售商品类目
+	$input->SetBody($params['body']);
+	// 		订单号应该是由小程序端传给服务端的，在用户下单时即生成，demo中取值是一个生成的时间戳
+	$input->SetOut_trade_no($params['tradeNo']);
+	// 		费用应该是由小程序端传给服务端的，在用户下单时告知服务端应付金额，demo中取值是1，即1分钱
+	$input->SetTotal_fee($params['totalFee']);
+	$input->SetNotify_url(""http://paysdk.weixin.qq.com/example/notify.php"");
+	$input->SetTrade_type(""JSAPI"");
+	// 		由小程序端传给服务端
+	$input->SetOpenid($openid);
+	// 		向微信统一下单，并返回order，它是一个array数组
+	$order = WxPayApi::unifiedOrder($input);
+	// 		json化返回给小程序端
+	header(""Content-Type: application/json"");
+	return getJsApiParameters($order);
+	// return ""hello {$params['name']}"";
+});
+
+function getJsApiParameters($UnifiedOrderResult) {
+	if(!array_key_exists(""appid"", $UnifiedOrderResult)
+	|| !array_key_exists(""prepay_id"", $UnifiedOrderResult)
+	|| $UnifiedOrderResult['prepay_id'] == """")
+	{
+		throw new WxPayException(""参数错误"");
+	}
+	$jsapi = new WxPayJsApiPay();
+	$jsapi->SetAppid($UnifiedOrderResult[""appid""]);
+	$timeStamp = time();
+	$jsapi->SetTimeStamp(""$timeStamp"");
+	$jsapi->SetNonceStr(WxPayApi::getNonceStr());
+	$jsapi->SetPackage(""prepay_id="" . $UnifiedOrderResult['prepay_id']);
+	$jsapi->SetSignType(""MD5"");
+	$jsapi->SetPaySign($jsapi->MakeSign());
+	$parameters = json_encode($jsapi->GetValues());
+	return $parameters;
+}
+
+class CIEngine extends LeanEngine {
+	function __invoke() {
+		$this->dispatch($_SERVER['REQUEST_METHOD'],
+			$_SERVER['REQUEST_URI']);
+	}
+}
+
+$hook['pre_system'] = function() {
+	// 参数依次为 AppId, AppKey, MasterKey
+	Client::initialize(""SgHcsYqoLaFTG0XDMD3Gtm0I-**"", ""xdv2nwj**glFoFXkQcxP"" ,""v3P5xzDa0b5***0xX0biHpT"");
+	Client::useMasterKey(true);
+	Client::setStorage(new CookieStorage());
+	$engine = new CIEngine();
+	// 以下是核心语句，直接像使用函数那样在对象上调用
+	$engine();
+};
+```
+
+**3.最后，在小程序端调用云函数**
+
+```
+AV.Cloud.run('pay', paramsJson).then(function(response) {
+	response = JSON.parse(response);
+	// 调用成功，得到成功的应答 data
+	console.log(response);
+	// 发起支付
+	wx.requestPayment({
+		'timeStamp': response.timeStamp,
+		'nonceStr': response.nonceStr,
+		'package': response.package,
+		'signType': 'MD5',
+		'paySign': response.paySign,
+		'success':function(res){
+			wx.showToast({
+				title: '支付成功'
+			});
+			// update order，此处是不良示范，应该通过上述SetNotify_url回调通知里在服务端更新订单状态
+			var query = new AV.Query('Order');
+			query.get(that.data.orderId).then(function (order) {
+				order.set('status', 1);
+				order.save();
+				console.log('status: ' + 1);
+			}, function (err) {
+				
+			});
+		}
+	});
+}, function(err) {
+  // 处理调用失败
+  console.log(err);
+});
+```
+
+这里有一个坑，就是服务端发来的数据是纯文本，而不是json对象，哪怕是调了header函数，header(""Content-Type: application/json"");还是一样，所以要强转一下。
+
+```
+response = JSON.parse(response);
+```
+
+而之前的做法，要先在小程序中调用wx.login，请拿appid/appsecret获取openId，最后wx.request请求统一下单url。现在的做法要简单多的，小程序端就不关心`https://lendoo.leanapp.cn`这个地址是何物了，直接跑AV.Cloud.run()就可以了。
+
+**4.完善微信支付回调通知**
+
+由服务端发起回调更新订单的状态才是正确的打开方式，于是在WXPay.php文件增加notify方法，供微信侧回调用
+
+```
+public function notify() {
+	//获取通知的数据
+	$xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+	//如果返回成功则验证签名
+	$result = WxPayResults::Init($xml);
+	$notify = new PayNotifyCallBack();
+	$notify->Handle(false);
+	$returnValues = $notify->GetValues(); 
+	//交易成功
+	if(!empty($returnValues['return_code']) && $returnValues['return_code'] == 'SUCCESS'){  
+	    //商户逻辑处理，如订单状态更新为已支付  
+	    $out_trade_no = $result['out_trade_no'];
+	    // 通过订单id，将它改为已支付状态
+	    $order = Object::create('Order', $out_trade_no);
+	    $order->set('status', 1);
+	    $order->save();
+	}              
+	echo $notify->ToXml();//返回给微信确认 
+}
+```
+
+其中PayNotifyCallBack类，在微信提供的php sdk包已经提供，我只是改了文件名，原包名为notify.php。
+
+微信php sdk的下载地址是：[https://pay.weixin.qq.com/wiki/doc/api/download/WxpayAPI_php_v3.zip](https://pay.weixin.qq.com/wiki/doc/api/download/WxpayAPI_php_v3.zip)
+
+相应地，在统一下单的配置参数中，换上真实的回调地址，即将上述`$input->SetNotify_url(""http://paysdk.weixin.qq.com/example/notify.php"");`更正为`$input->SetNotify_url(""https://lendoo.leanapp.cn/WXPay/notify"");`
+
+这样一来，微信支付那头就是隔段时间发通知过来，直到处理成功为止；如果终止不能成功，微信端才会放弃。
+
+源码下载：[http://git.oschina.net/dotton/lendoo-wx](http://git.oschina.net/dotton/lendoo-wx)，本文涉及代码存于/pages/order/payment文件夹中；相应后端代码托管在：[http://git.oschina.net/dotton/lendoo-web](http://git.oschina.net/dotton/lendoo-web)，代码存于config/hooks.php目录下",Codeigniter中创建LeanCloud云函数实现微信支付
+http://blog.it577.net/usr/uploads/2017/06/2572978873.jpeg,6,"![同一经营不能重复添加至附近小程序.jpeg][1]
+于是只能换个地址，或者车轮战了
+
+  [1]: http://blog.it577.net/usr/uploads/2017/06/2572978873.jpeg",同一经营不能重复添加至附近小程序
+http://blog.it577.net/usr/uploads/2017/06/3953411660.png,10,"支持Markdown
+开源
+自带了一个非常好用api模板，也可以生成自己的模板以复用
+也可以在官网上注册个号直接使用
+
+地址：[https://www.showdoc.cc/](https://www.showdoc.cc/)",推荐一款在线写作接口文档的神器——showdoc

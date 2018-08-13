@@ -1,0 +1,45 @@
+<!-- 回答页面 -->
+<view class="container">
+	<!-- 标题 -->
+	<view class="title">
+		{{question.title}}
+	</view>
+	<!-- 头像昵称与日期 -->
+	<view class="sub-title">
+		<image src="{{!user.userInfo.avatar ? '/images/logo.png' : user.userInfo.avatar}}" class="avatar" />
+		<view class="nickname">{{!user.userInfo.nickname ? '匿名' : user.userInfo.nickname}}</view>
+		<view class="time">{{question.createdAt}}</view>
+	</view>
+	<!-- 内容 -->
+	<view class="content">
+		{{question.content}}
+	</view>
+	<!-- 缩略图 -->
+	<view class="gallery">
+		<view wx:for="{{question.images}}" class="item" wx:key="">
+			<image data-current="{{item}}" class="thumb" style="width: {{image_width}}px; height: {{image_width}}px" src="{{item}}" bindtap="previewImage" mode="aspectFill" />
+		</view>
+	</view>
+	<!-- 回答列表 -->
+	<view class="caption">已有回答</view>
+	<view class="empty-holder" style="display: {{visual}}">暂无回答</view>
+	<!-- 列表 -->
+	<view class="answer" wx:for="{{answer_list}}" wx:key="">
+		<!-- 头像与回答内容 -->
+		<view class="top-part">
+			<view class="avatar-container">
+				<image src="{{!user_list[index].userInfo.avatar ? '/images/logo.png' : user_list[index].userInfo.avatar}}" class="avatar" />
+			</view>
+			<view class="answer-content">{{item.content}}</view>
+		</view>
+		<!-- 昵称与日期 -->
+		<view class="bottom-part">
+			<view class="nickname">{{!user_list[index].userInfo.nickname ? '匿名' : user_list[index].userInfo.nickname}}</view>
+			<view class="time">{{item.createdAt}}</view>
+		</view>
+	</view>
+	<!-- 我要回答 -->
+	<view class="caption">我要回答</view>
+	<textarea auto-height="true" bindinput="contentInput" maxlength="-1" name="content" placeholder="请发表你的见解"></textarea>
+	<button class="answer-button" type="primary" bindtap="answer">回答</button>
+</view>

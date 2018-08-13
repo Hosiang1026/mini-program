@@ -1,0 +1,6 @@
+<import src="../../wemark/wemark.wxml"/>
+<view class="container">
+	<view class="title">{{article.title}}</view>
+	<view class="time">{{article.updatedAt}}</view>
+	<template is="wemark" data="{{...wemark}}"></template>
+</view>

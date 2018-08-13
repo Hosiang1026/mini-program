@@ -1,0 +1,26 @@
+<!-- 问题列表 -->
+<view wx:for="{{question_list}}" wx:key="" class="row" bindtap="showDetail" data-index="{{index}}">
+	<view class="title">
+		{{item.title}}
+	</view>
+	<view class="desc">
+		<view class="avatar-nickname">
+			<image src="{{!user_list[index].userInfo.avatar ? '/images/logo.png' : user_list[index].userInfo.avatar}}" class="avatar" />
+			<view class="nickname">
+				{{!user_list[index].userInfo.nickname ? '匿名' : user_list[index].userInfo.nickname}}
+			</view>
+		</view>
+		<view class="time">
+			{{item.createdAt}}
+		</view>
+	</view>
+</view>
+<!-- 上拉加载状态 -->
+<view class="loading-indicator">
+	{{loadingTip}}
+</view>
+<!-- 提交按钮 -->
+<view class="request-container">
+	<view class="request-button" type="primary" bindtap="request">+</view>
+	
+</view>

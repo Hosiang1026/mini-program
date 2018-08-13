@@ -1,0 +1,19 @@
+<!-- 提问页 -->
+<form bindsubmit="bindSubmit">
+	<view class="label">标题</view>
+	<input name="title" class="title" placeholder="请简要描述你的问题" />
+	<view class="label">内容</view>
+	<textarea auto-height="true" name="content" placeholder="请说明内容"></textarea>
+	<!-- 预览框 -->
+	<view class="gallery">
+		<view wx:for="{{images}}" class="item">
+			<image data-current="{{item}}" class="thumb" style="width: {{image_width}}px; height: {{image_width}}px" src="{{item}}" bindtap="previewImage" />
+			<view class="delete">
+				<image src="/images/delete.png" data-index="{{index}}" bindtap="delete" style="left: {{(image_width - 8) / 2}}px;" />
+			</view>
+		</view>
+		<image class="thumb" style="width: {{image_width}}px; height: {{image_width}}px" src="/images/upload.png" bindtap="upImg" />
+	</view>
+	<!-- 提交按钮 -->
+	<button type="primary" formType="submit">提交</button>
+</form>

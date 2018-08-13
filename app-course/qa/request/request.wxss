@@ -1,0 +1,55 @@
+/*提问页的样式*/
+
+/*全局样式*/
+page {
+	background-color: #fbf9ff;
+}
+
+/*标签文本*/
+.label {
+	color: #000;
+	font-size: 16px;
+	padding: 10px;
+}
+
+/*文本框*/
+.title {
+	width: 100%;
+	padding: 10px;
+}
+
+textarea {
+	padding: 10px;
+}
+
+/*预览总容器*/
+.gallery {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.item {
+	position: relative;
+}
+
+/*小图片*/
+.thumb {
+	margin: 5px;
+}
+
+/*删除按钮*/
+.delete {
+	position: absolute;
+	height: 20px;
+	bottom: 8px;
+	width: 94%;
+	background: #ccc; 
+	opacity: 0.7;
+}
+
+.delete image {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+}

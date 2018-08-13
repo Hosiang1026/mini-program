@@ -1,0 +1,31 @@
+{
+    "pages":[
+        "video/list/list",
+        "video/detail/detail",
+        "qa/list/list",
+        "article/list/list",
+        "article/detail/detail",
+        "chat/dialog/dialog",
+        "qa/answer/answer",
+        "qa/request/request"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#48c23d",
+        "navigationBarTitleText": "灵动云课堂",
+        "navigationBarTextStyle":"white"
+    },
+    "tabBar":{
+        "selectedColor": "#3cc51f",
+        "list":[{
+                "pagePath":"video/list/list",
+                "iconPath":"images/icon_video.png",
+                "selectedIconPath":"images/icon_video_selected.png",
+                "text":"视频"
+            },{
+                "pagePath":"article/list/list",
+                "iconPath":"images/icon_cate.png",
+                "selectedIconPath":"images/icon_cate_selected.png",
+                "text":"博客"
+            }]
+    }
+}
