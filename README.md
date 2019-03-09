@@ -1,8 +1,8 @@
 # mini-program (微信小程序学习)
 
-## 作者：狂欢马克思
+## 作者：吉祥草
 
-## 网站：http://www.hosiang.cn
+## 网站：http://www.hosiang.cn （狂欢马克思）
 
 ## 项目介绍
 
