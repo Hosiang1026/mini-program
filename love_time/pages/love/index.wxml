@@ -1,0 +1,71 @@
+<!-- 具体内容部分 -->
+<view class="news_content_wrap">
+  <!-- 热门部分 -->
+  <view class="news_item">
+    <!-- 轮播图部分 -->
+    <swiper autoplay circular indicator-dots indicator-color="#fff">
+      <swiper-item wx:for="{{swiperItemList}}" wx:key="id">
+        <navigator>
+          <image mode="widthFix" src="{{item.src}}"></image>
+        </navigator>
+      </swiper-item>
+    </swiper>
+
+    <view class="ours_info_wrap">
+        <view class="lovers_info_wrap">
+            <view class="me">
+                <view class="name">祥祥</view>
+                <view class="intro">1992.09.18</view>
+            </view>
+            <view class="love_days">
+                <view class="user_me_img">
+                   <image src="/static/image/xiang.png"></image>
+                </view>
+                <view class="days">
+                    <view class="iconfont icon-fenzu2"></view>
+                    <view class="text_info">恋爱{{loveDays}}天</view>
+                </view>
+                <view class="user_lover_img">
+                    <image src="/static/image/fang.png"></image>
+                </view>
+            </view>
+            <view class="lover">
+                <view class="name">七七</view>
+                <view class="intro">1995.10.01</view>
+            </view>
+        </view>
+        <!--<view class="ours_tools_wrap">
+            <view class="secret" bindtap="handleToSecrets">
+                <view class="iconfont icon-nolove"></view>
+                <view class="text">悄悄话</view>
+            </view>
+            <view class="photos">
+                <view class="iconfont icon-zhaopian"></view>
+                <view class="text">照片库</view>
+            </view>
+            <view class="wish" bindtap="handleToWishes">
+                <view class="iconfont icon-xingxing"></view>
+                <view class="text">愿望单</view>
+            </view>
+        </view>-->
+    </view>
+
+    <!-- 纪念日提醒 -->
+    <view class="dateRemind_wrap" bindtap="handleToAnniversary">
+      <view class="date_title">恋爱纪念日</view>
+      <view class="date_content">
+        <view class="date_content_item">
+          <view class="iconfont icon-shizhong"></view>
+          2019-03-27
+        </view>
+        <view class="date_content_item">
+          <view class="iconfont icon-lingdang"></view>
+          距离最近的纪念日还有{{days}}天
+        </view>
+      </view>
+    </view>
+    
+  </view>
+
+
+</view>

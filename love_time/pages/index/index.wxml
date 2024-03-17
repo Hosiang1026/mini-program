@@ -1,0 +1,57 @@
+<!--index.wxml首页-->
+<view class="content">
+    <!-- 背景图片  -->
+    <image src="/static/image/bg_1.png" class="bgImage"></image>
+    <!--content-gif顶端动态图  -->
+    <view class="content-gif">
+              <image src="/static/image/save_the_date.gif"></image>
+    </view>
+     <!-- 背景音乐 -->
+     <view class="player" bindtap="player">
+            <image src="/static/image/music_icon.png"></image>
+            <image src="/static/image/music_play.png" animation="{{animationData}}"></image>
+     </view>
+      <!-- 邀请函 -->
+      <view class="content-title">
+          <text>邀请函</text>
+      </view>
+     <!-- 新郎新娘图片-->
+        <view class="content-avatar">
+          <image src="/static/image/avatar.png"></image>
+        </view>
+       <!-- 新郎新娘信息-->
+      <view class="content-info">
+            <!-- 新郎信息 -->
+             <view>
+                <view>郝先生</view>
+                <text>新郎</text>
+                 <!-- 联系电话 -->
+                <!--<image src="/static/image/tel.png" bindtap="call"></image>-->
+            </view> 
+            <!-- 中间囍字图片 -->
+              <image src="/static/image/wedding.png"></image>
+            <!-- 新娘信息 -->
+             <view>
+                <view>郝女士</view>
+                <text>新娘</text>
+                <!-- 联系电话 -->
+                <!--<image src="/static/image/tel.png" bindtap="call"></image>-->
+            </view>
+      </view> 
+       <!-- 婚礼地址-->
+      <view class="content-address">
+          <text>我们诚邀您来参加我们的婚礼</text>
+          <text>时间：2024年1月26日 农历癸卯年腊月十六</text>
+          <text>地点：安徽省安庆市****</text>
+      </view>
+
+</view>
+      
+
+         
+   
+   
+   
+    
+    
+     

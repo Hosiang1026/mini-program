@@ -1,0 +1,449 @@
+.nav_wrap {
+  position: relative;
+  padding-bottom: 79rpx;
+  .head {
+    width: 100%;
+    height: 79rpx;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    top: 0;
+    left: 0;
+    .nav_item {
+      padding: 16rpx 40rpx;
+    }
+    .active {
+      border-bottom: 4rpx solid #ff7050;
+      color: #ff7050;
+    }
+  }
+}
+
+// 热门部分 开始
+.news_content_wrap {
+  .news_item {
+    width: 100%;
+    height: 333rpx;
+    swiper {
+      width: 100%;
+      height: 100%;
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.dateRemind_wrap {
+  padding: 40rpx 20rpx;
+  .date_title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: #505050;
+  }
+  .date_content {
+    .date_content_item {
+      font-size: 24rpx;
+      color: #191919;
+      display: flex;
+      align-items: center;
+      padding: 30rpx 0;
+      border-bottom: 1rpx solid #ebebeb;
+      .iconfont {
+        margin-right: 30rpx;
+      } 
+    }
+  }
+}
+
+.msg_wrap {
+  padding: 25rpx 20rpx;
+  .msg_item {
+    padding-bottom: 60rpx;
+    .msg_title {
+      display: flex;
+      .user_img {
+        width: 100rpx;
+        height: 100rpx;
+        margin-right: 20rpx;
+        image {
+          width: 100%;
+        }
+      }
+      .user_info {
+        flex-grow: 1;
+        .user_name {
+          display: flex;
+          justify-content: space-between;
+          color: #333333;
+          font-size: 34rpx;
+          .iconfont {
+            color: #999;
+            font-size: 50rpx;
+          }
+        }
+        .date {
+          color: #999999;
+          font-size: 26rpx;
+          padding: 5rpx 0;
+        }
+        .address {
+          display: flex;
+          font-size: 24rpx;
+          color: #505050;
+          .iconfont {
+            color: #999;
+            margin-right: 5rpx;
+          }
+        }
+      }
+    }
+    .msg_content {
+      .msg_text {
+        padding: 5rpx 0 20rpx;
+      }
+      .msg_img {
+        width: 100%;
+        height: 400rpx;
+        image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .msg_tools {
+      display: flex;
+      justify-content: space-between;
+      padding: 40rpx 0;
+      border-bottom: 1rpx solid #e2e2e2;
+      .view_count {
+        color: #808080;
+        font-size: 28rpx;
+      }
+      .msg_handleIcon {
+        color: #999;
+        .iconfont {
+          font-size: 40rpx;
+          margin-left: 40rpx;
+        }
+        .active {
+          color: #3335c1;
+        }
+      }
+    }
+    .msg_comments {
+      font-size: 28rpx;
+      padding-top: 40rpx;
+      .comment_count {
+        color: #257bb6;
+        padding-bottom: 20rpx;
+      }
+      .comment_content {
+        view {
+          padding-bottom: 20rpx;
+        }
+        .users_name {
+          color: #257bb6;
+        }
+      }
+      .comment_input {
+        input {
+          border: 1rpx solid #e2e2e2;
+          padding: 15rpx 20rpx;
+          color: #bababa;
+          border-radius: 6rpx;
+        }
+      }
+    }
+  }
+  .view_more {
+    color: #707070;
+    font-size: 30rpx;
+    text-align: center;
+  }
+  .send_msg_btn {
+    width: 112rpx;
+    height: 112rpx;
+    background-color: #f953f6;
+    font-size: 60rpx;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 50rpx;
+    bottom: 50rpx;
+    box-shadow: 0 10rpx 10rpx rgba(0, 0, 0, 0.5);
+  }
+}
+// 热门部分 结束
+
+// 资讯部分 开始
+.info_search_wrap {
+  display:flex;
+  justify-content: center;
+  padding: 30rpx 20rpx;
+  position: relative;
+  input {
+    flex: 4;
+    border: 1rpx solid #ccc;
+    height: 60rpx;
+    padding-left: 20rpx;
+  }
+  .iconfont {
+    width: 39rpx;
+    height: 39rpx;
+    position: absolute;
+    top: 44rpx;
+    right: 168rpx; 
+    color: #1890ff;
+  }
+  .search_btn {
+    flex: 1;
+    height: 61rpx;
+    line-height: 61rpx;
+    text-align: center;
+    background-color: #ff00e6;
+    border-radius: 0 30rpx 30rpx 0;
+    font-size: 27rpx;
+    color: #fff;
+  }
+}
+
+.info_list_wrap {
+  .info_item {
+    display: flex;
+    padding: 15rpx 30rpx 30rpx;
+    border-top: 1rpx solid #ccc; 
+    .info_img {
+      width: 226rpx;
+      height: 181rpx;
+      margin-right: 25rpx;
+      image {
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .info_content {
+      width: 380rpx;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .info_title {
+        font-size: 27rpx;
+        color: #505050;
+      }
+      .info_count {
+        font-size: 23rpx;
+        color: #b0b0b0;
+      }
+    }
+  }
+}
+// 资讯部分 结束
+
+// 音乐部分开始
+.lastest_music {
+  width: 100%;
+  height: 375rpx;
+  margin: 20rpx 0;
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.music_list_wrap {
+  .play_all {
+    display: flex;
+    .iconfont {
+      flex: 1;
+      color: #999999;
+      font-size: 40rpx;
+      padding: 20rpx;
+      text-align: center;
+    }
+    .play_text {
+      flex: 10;
+      color: #505050;
+      font-size: 29rpx;
+      border-bottom: 1rpx solid #ccc;
+      padding: 20rpx 0;
+    }
+  }
+  .music_content {
+    padding: 0 23rpx;
+    .music_item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20rpx;
+      border-bottom: 1rpx solid #ccc;
+      .music_info {
+        .music_name {
+          font-size: 29rpx;
+          color: #505050;
+          padding-bottom: 10rpx;
+        }
+        .music_singer {
+          font-size: 23rpx;
+          color: #999;
+        }
+      }
+      .music_more {
+        color: #999;
+      }
+    }
+  }
+}
+// 音乐部分结束
+
+// 排行榜部分开始
+.rank_wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f0f0;
+  padding-top: 10rpx;
+  .rank_title {
+    color: #fff;
+    font-size: 26rpx;
+    font-weight: 700;
+    background-color: #5258ba;
+    width: 361rpx;
+    height: 54rpx;
+    line-height: 54rpx;
+    text-align: center;
+    margin: 0 auto 10rpx;
+  }
+  .rank_list {
+    .rank_item {
+      display: flex;
+      align-items: center;
+      padding: 20rpx 30rpx;
+      border-bottom: 1rpx solid #ccc;
+      .rank_num {
+        flex: 1;
+        text-align: center;
+        font-size: 32rpx;
+      }
+      .rank_img {
+        width: 89rpx;
+        height: 89rpx;
+        image {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .rank_data {
+        flex: 6;
+        padding-left: 20rpx;
+        .content {
+          display: flex;
+          justify-content: space-between;
+          color: #505050;
+          font-size: 27rpx;
+          margin-bottom: 15rpx;
+          .lovers_num {
+            padding-right: 30rpx;
+          }
+        }
+        progress {
+          width: 473rpx;
+          height: 18rpx;
+        }
+      }
+    }
+  }
+}
+
+// 排行榜部分结束
+
+.ours_info_wrap {
+    padding: 0 23rpx;
+    .lovers_info_wrap {
+        display: flex;
+        justify-content: space-between;
+        padding: 40rpx 0 20rpx;
+        border-bottom: 1rpx solid #ccc;
+        .me, .lover {
+            text-align: center;
+            .name {
+                color: #505050;
+                font-size: 27rpx;
+                padding: 15rpx;
+            }
+            .intro {
+                color: #999;
+                font-size: 23rpx;
+            }
+        }
+        .love_days {
+            display: flex;
+            .user_me_img, .user_lover_img {
+                width: 90rpx;
+                height: 90rpx;
+                background-color: #0abdee;
+                border-radius: 50%;
+                image {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .user_lover_img {
+                background-color: #ff45cd;
+            }
+            .days {
+                color: #f885a0;
+                position: relative;
+                top: -10rpx;
+                left: 0;
+                .iconfont {
+                    font-size: 62rpx;
+                    text-align: center;
+                    padding-bottom: 30rpx;
+                }
+                .text_info {
+                    font-size: 24rpx;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+    .ours_tools_wrap {
+        padding: 30rpx 60rpx;
+        display: flex;
+        justify-content: space-between;
+        .secret, .photos, .wish {
+            color: #ff6288;
+            text-align: center;
+            .iconfont {
+                font-size: 40rpx;
+            }
+            .text {
+                font-size: 26rpx;
+            }
+        }
+    }
+    .ours_list_wrap {
+        .active_center, .clean_storage, .login_out, .ours_intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40rpx 20rpx;
+            border-bottom: 1rpx solid #ccc;
+            color: #505050;
+            font-size: 27rpx;
+            .text {}
+            .iconfont {
+                font-size: 40rpx;
+            }
+        }
+    }
+}

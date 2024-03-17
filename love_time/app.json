@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/love/index",
+    "pages/anniversary/anniversary",
+    "pages/index/index",
+    "pages/picture/picture",
+    "pages/map/map"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示" 
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ff4c91",
+    "navigationBarTitleText": "浪漫恋爱",
+    "navigationBarTextStyle": "black"
+  },
+ "tabBar": {
+   "selectedColor": "#ff4c91",
+   "list": [
+     {
+        "pagePath": "pages/love/index",
+        "iconPath": "/static/image/guest.png",
+        "selectedIconPath": "/static/image/guest.png",
+        "text": "浪漫恋爱"
+      },
+      {
+        "pagePath": "pages/anniversary/anniversary",
+        "text": "纪念时光",
+        "iconPath": "/static/image/anniversary.png",
+        "selectedIconPath": "/static/image/anniversary.png"
+       }
+   ]
+ },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

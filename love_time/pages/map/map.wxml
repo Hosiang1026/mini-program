@@ -1,0 +1,26 @@
+<!-- 需求：
+          1）拾取到婚礼举办酒店的经纬度坐标。
+          2）利用map组件显示地图，并在婚礼地点放置markers覆盖物标记。
+          3）单击蓝色图标的标记点，通过wx.openLocation()调用微信内置地图查看位置 
+           latitude=" 30.436154"
+           longitude="114.461853"
+           
+-->
+    <map
+      id="myMap"
+      show-location="true"
+      style="width: 100vw; height:100vh"
+      longitude="120.55271072410581"
+      latitude="30.3649855304188"
+      scale="14"
+      markers="{{markers}}"
+      circle="{{circle}}"
+      bindmarkertap="bindmarkertap"
+      show-compass="true"
+      show-scale="=true"
+      enable-poi="true"
+
+     
+    >
+    </map>
+

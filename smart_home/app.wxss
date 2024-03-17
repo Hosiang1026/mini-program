@@ -1,0 +1,11 @@
+/**app.wxss**/
+page{
+  background-color: #222222;
+}
+
+/**app.wxss**/
+pages {
+  position: relative;
+  z-index: 9999998;
+  background: #fff;
+}

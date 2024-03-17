@@ -1,0 +1,98 @@
+/**index.wxss**/
+page{
+  width: 100vw;
+  height: 100vh;
+}
+.content{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  color: #ff4c91;
+}
+.bgImage{
+  
+  width: 100%;
+  height:100%;
+
+}
+.content-gif{
+  position: absolute;
+}
+.content-gif>image{
+  width: 400rpx;
+  height: 200rpx;
+}
+.player{
+  position: absolute;
+  top:95rpx;
+  right: 55rpx;
+}
+.player>image:first-child{
+ width: 100rpx;
+ height: 100rpx;
+}
+.player>image:last-child{
+  width: 50rpx;
+  height: 150rpx;
+  transform-origin:0 0 0;
+  
+ }
+ .content-title{
+  position: absolute;
+  top: 250rpx;
+ }
+ .content-title>text{
+   color: #ff4c91;
+   font-size: 90rpx;
+   font-weight: bolder;
+   font-family: FZShuTi;
+ }
+ .content-avatar{
+  position: absolute;
+  top: 365rpx;
+ }
+ .content-avatar>image{
+   width: 330rpx;
+   height: 330rpx;
+   border-radius: 50%;
+   border: 3rpx solid rgba(138, 132, 132, 0.404);
+ }
+ .content-info{
+  position: absolute;
+  top: 725rpx;
+  display: flex;
+  font-weight: bolder;
+ }
+.content-info image{
+  width: 80rpx;
+  height: 100rpx;
+}
+.content-info>view{
+  text-align: center;
+  margin: 0 30rpx;
+  position: relative;
+}
+.content-info>view>image{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top:-16rpx;
+  right: -35rpx;
+  border-radius: 50%;
+  border: 1rpx dashed #ff4c91;
+}
+.content-address{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 877rpx;
+}
+.content-address>text{
+  text-align: center;
+  display:block;
+  font-size: smaller;
+}

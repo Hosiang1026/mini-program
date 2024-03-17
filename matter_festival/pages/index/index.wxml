@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="root-wrapper">
+  <view class="root">
+    <view class="header-wrapper">
+      <image style="height: 40vh;z-index: -999;position:absolute;" mode="heightFix" src="/static/images/newyear.jpg"></image>
+      <view class="header-content-wrapper">
+        <view class="header-text">
+          <text>重要节日</text>
+        </view>
+        <view class="weather-time/FAT">
+          <text>{{ todayFestival }}</text>
+        </view>
+        <view class="weather-time/FAT">
+          <text>{{ todaySolar }}</text>
+        </view>
+        <view class="weather-time/FAT">
+          <text>{{ todayLunar }}</text>
+        </view>
+      </view>
+    </view>
+<scroll-view enable-flex="true" class="container">
+    <view class="scrolltxt">
+      <view class="marquee_box">
+        <view class="marquee_text" style="transform: translateX(-{{marqueeDistance}}px)">
+          <text>{{text}}</text>
+          <text style="margin-right:{{marquee_margin}}px;">{{text}}</text>    
+        </view>
+      </view>
+    </view>
+</scroll-view>
+<view wx:if="{{items.length>0}}">
+      <view wx:for="{{items}}" wx:key="items" wx:for-item="item" wx:for-index="itemIdx" class="subMain">
+            <view class="body-wrapper">
+              <view class="date">
+                <view class="date-text">
+                <view class="date-value">{{item}}</view>
+                </view>
+              </view>
+            </view>
+      </view>
+</view>
+    </view>
+</view> 

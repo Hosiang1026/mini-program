@@ -1,0 +1,41 @@
+<!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{navbarData}}'></nav-bar>
+
+<view class='home-page' style='margin-top: {{height}}px'></view>
+<view class="header-text">
+  <text>{{headTitle}}</text>
+</view>
+<view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindblur="getKeywords" />
+            <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                <icon type="clear" size="14"></icon>
+            </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+            <icon class="weui-icon-search" type="search" size="14"></icon>
+            <view class="weui-search-bar__text">搜索</view>
+        </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<!--模版列表-->
+<view class="mobileListBorder">
+     <!--<scroll-view scroll-y="true"  wx:if="{{items.length>0}}" style="height:413px;">-->
+        <view wx:if="{{items.length>0}}" class="main">
+            <view wx:for="{{items}}"  wx:key="items" wx:for-item="item" wx:for-index="itemIdx" class="subMain">
+                <view class="subMainImage">
+                    <image src="/static/images/background-up.png" class="upImage"/>
+                    <image class="images" data-cover="{{item.cover}}" src="{{item.cover}}" bindtap="handlePreviewImg" />
+                    <!--<image src="/static/images/collect.png" class="collectImage" bindtap="collectApi"/>-->
+                </view>
+                <view class="subMainText">{{item.title}}</view>
+            </view>
+        </view>
+    <!--</scroll-view>-->
+</view>
+<view class="bottom-text">
+  <text>{{itemDate}}</text>
+</view>

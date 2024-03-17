@@ -1,0 +1,54 @@
+/* pages/my/my.wxss */
+.root-wrapper{
+  min-height: 100vh;
+  overflow: hidden;
+}
+.header-wrapper{
+  background: rgba(0, 0, 0, 0.6)no-repeat center center;
+  background-blend-mode: multiply;
+  height: 40vh;
+  color: #ffffff;
+}
+
+.avatar-wrapper{
+  padding: 0;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 8px;
+  margin-top: -170px;
+  margin-right: 100px;
+}
+.avatar {
+  font-size: 36px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+}
+
+.weui-input {
+  font-size: 30px;
+  margin-top: 20px;
+  text-align: center;
+  color: #ffffff;
+  height: 34px;
+}
+
+.body-wrapper{
+  margin-top: 32px;
+  box-sizing: border-box;
+  padding: 20px 15px 0 15px;
+}
+.list-wrapper{
+  margin: 28px 0;
+  height: 85rpx;
+}
+.list{
+  border-radius: 25px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2f2f2f;
+  padding: 8px 20px;
+  font-size: 50rpx;
+}

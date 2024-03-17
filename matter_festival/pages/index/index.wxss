@@ -1,0 +1,150 @@
+/**index.wxss**/
+.root-wrapper{
+  min-height: 100vh;
+  overflow: hidden;
+}
+.header-wrapper{
+  background: rgba(0, 0, 0, 0.6)no-repeat center center;
+  background-blend-mode: multiply;
+  height: 33vh;
+  color: #ffffff;
+}
+.header-content-wrapper{
+  padding: 8vh 15px 20px 15px;
+}
+.header-title{
+  display: flex;
+  justify-content: space-around;
+}
+.header-text{
+  font-size: 32px;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-around;
+}
+.weather-time{
+  margin-top: 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-around;
+}
+.weather-advice{
+  margin-top: 20px;
+  font-size: 12px;
+}
+.body-wrapper{
+  padding: 20px 15px 0px 15px;
+}
+.data-wrapper{
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-around;
+}
+.data{
+  background-color: #383838;
+  width: 135px;
+  height: 77px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+/*body*/
+.body-wrapper{
+  padding: 18px 15px 0px 15px;
+}
+.date-logo image{
+  width: 107rpx;
+  height: 107rpx;
+}
+.date{
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  height: 100rpx;
+  border-radius:40rpx ;
+  box-shadow: #77778a 0 0 10rpx;
+  padding: 0 15rpx;
+}
+.date-logo{
+  display: flex;
+  align-items: center;
+}
+.date-text{
+  height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.date-value{
+  font-size: 50rpx;
+  color: #2f2f2f;
+}
+
+.datam{
+  background-color: #2f2f2f;
+  width: 130px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  transition: transform 0.05s ease-in-out;
+}
+.datam:active{
+  transform: scale(0.95);
+}
+
+.data-left{
+  margin-top: 11px;
+  margin-left: 15px;
+}
+.data-logo{
+  height: 36px;
+  width: 36px;
+}
+.data-title{
+  color: #f7f4f4;
+  font-size: 15px;
+  margin-top: 18px;
+  margin-left: 10px;
+}
+.data-value{
+  color: #f7f4f4;
+  font-size: 15px;
+  margin-top: 24px;
+  margin-left: 10px;
+}
+.data-size{
+  zoom: 1;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.container {
+  height: 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6)no-repeat center center;
+  background-blend-mode: multiply;
+}
+.scrolltxt{
+  padding:0 20rpx;
+}
+.marquee_box {
+  position:relative;
+  color:#f9f9f9;
+  height:7vh;
+  display:block;
+  overflow:hidden;
+} 
+.marquee_text {
+  white-space: nowrap;
+  position:absolute;
+  top:0;
+  font-size:15px;
+  height:100rpx;
+  line-height:100rpx;
+}
+

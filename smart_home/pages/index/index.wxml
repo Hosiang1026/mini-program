@@ -1,0 +1,178 @@
+<!--index.wxml-->
+<view class="root-wrapper">
+  <view class="root">
+    <view class="header-wrapper">
+      <image style="height: 40vh;z-index: -999;position:absolute;" mode="heightFix" src="/static/images/furniture.jpg"></image>
+      <view class="header-content-wrapper">
+        <view class="header-title">
+          <text>空气质量-{{airText}}</text>
+          <text>{{ area }}-{{ city }}</text>
+        </view>
+        <view class="header-text">
+          <text>{{ airValue }}</text>
+          <text>{{ weather }}</text>
+        </view>
+        <view class="weather-time/FAT">
+          <text>PM2.5：{{ pm2p5 }}μg/m3</text>
+          <text>体感温度：{{FAT}}℃</text>
+        </view>
+        <view class="weather-advice">
+          <text>天气建议：{{todaylifeadvice}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="body-wrapper">
+      <view class="body">
+
+        <view class="data-wrapper">
+          <view class="data">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/smoke.png"></image>
+              <view class="data-title">烟雾浓度</view>
+            </view>
+            <view class="data-value">{{ppm}}ppm
+            </view>
+
+          </view>
+          <view class="data">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/Temp.png"></image>
+              <view class="data-title">温度</view>
+            </view>
+            <view class="data-value">{{temp}}℃</view>
+          </view>
+        </view>
+
+        <view class="data-wrapper">
+          <view class="data">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/Humi.png"></image>
+              <view class="data-title">湿度</view>
+            </view>
+            <view class="data-value">{{humi}}%</view>
+          </view>
+
+          <view class="data">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/Lx.png"></image>
+              <view class="data-title">光照度</view>
+            </view>
+            <view class="data-value">
+              {{Light}}Lx
+            </view>
+          </view>
+        </view>
+
+        <view class="data-wrapper">
+          <view class="data">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/Rains.png"></image>
+              <view class="data-title">雨水</view>
+            </view>
+            <view class="data-value">{{Rains}}%</view>
+          </view>
+
+          <view class="data">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/voltage.png"></image>
+              <view class="data-title">电压</view>
+            </view>
+            <view class="data-value">{{voltage}}V</view>
+          </view>
+        </view>
+
+        <view class="data-wrapper">
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/led.png"></image>
+              <view class="data-title">卧室灯</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onLED0Change" checked="{{LED0}}" color="#3d7ef9" /></view>
+          </view>
+
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/led.png"></image>
+              <view class="data-title">客厅灯</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onLED1Change" checked="{{LED1}}" color="#3d7ef9" /></view>
+          </view>
+        </view>
+
+        <view class="data-wrapper">
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/led.png"></image>
+              <view class="data-title">浴室灯</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onLED2Change" checked="{{LED2}}" color="#3d7ef9" /></view>
+          </view>
+
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/led.png"></image>
+              <view class="data-title">路灯</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onLED3Change" checked="{{LED3}}" color="#3d7ef9" /></view>
+          </view>
+        </view>
+
+        <view class="data-wrapper">
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/door.png"></image>
+              <view class="data-title">门</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onDOORSTATEChange" checked="{{DOORSTATE}}" color="#3d7ef9" /></view>
+          </view>
+
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/airfan.png"></image>
+              <view class="data-title">风扇</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onAIRFANSTATEChange" checked="{{AIRFANSTATE}}" color="#3d7ef9" /></view>
+          </view>
+        </view>
+       
+        <view class="data-wrapper">
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/window.png"></image>
+              <view class="data-title">窗</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onWINDOWSTATEChange" checked="{{WINDOWSTATE}}" color="#3d7ef9" /></view>
+          </view>
+
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/alarm.png"></image>
+              <view class="data-title">报警器</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onBEEPChange" checked="{{BEEP}}" color="#3d7ef9" /></view>
+          </view>
+
+          <!--
+          <view class="datam">
+            <view class="data-left">
+              <image class="data-logo" src="/static/images/curtain.png"></image>
+              <view class="data-title">窗帘</view>
+            </view>
+            <view class="data-size">
+              <switch bind:change="onMOTORSTATEChange" checked="{{MOTORSTATE}}" color="#3d7ef9" /></view>
+          </view>
+          -->
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

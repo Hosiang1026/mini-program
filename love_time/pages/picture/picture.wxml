@@ -1,0 +1,10 @@
+<!--pages/picture/picture.wxml-->
+<swiper class="pictureSwiper" vertical="true" indicator-dots="true" indicator-color="#5a5a5a" indicator-active-color="#ff4c91" autoplay="true" interval="2000" circular="true" duration="1000">
+
+  <swiper-item>
+    <image src="/static/image/timg4.jpg"></image>
+  </swiper-item>
+  <swiper-item>
+    <image src="/static/image/timg1.jpg"></image>
+  </swiper-item>
+</swiper>

@@ -1,0 +1,49 @@
+{
+  "pages":[
+    "pages/login/index",
+    "pages/index/index",
+    "pages/wardrobe/wardrobe",
+    "pages/dress/dress",
+    "pages/my/my"
+  ],
+  "requiredPrivateInfos":[
+    "getLocation"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarTitleText": "",
+    "navigationStyle": "custom"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于天气效果展示"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#999",
+    "backgroundColor": "#2f2f2f",
+    "selectedColor": "#1989fa",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/tabs/home.png",
+        "selectedIconPath": "/static/tabs/home-active.png"
+      },
+      {
+        "pagePath": "pages/wardrobe/wardrobe",
+        "text": "衣柜",
+        "iconPath": "/static/tabs/wardrobe-active.png",
+        "selectedIconPath": "/static/tabs/wardrobe-active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "/static/tabs/my.png",
+        "selectedIconPath": "/static/tabs/my-active.png"
+      }
+    ]
+  }
+}
