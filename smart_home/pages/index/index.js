@@ -49,7 +49,7 @@ const mpSubTopic = devicePubTopic;
 const mpPubTopic = deviceSubTopic;
 
 const hefengVIP = false; //  和风天气是免费的api（false）还是付费api（true）
-const hefengKey = "fb82f0603a4642fea2673acff1187750"; //  和风天气Web api的key 我自己的c0c3e6679c3d436596eba1e220bea7d1
+const hefengKey = "fb82f0603a4642fea2673acff1187750"; //  和风天气Web api的key 我自己的
 const hefengApi = "https://api.qweather.com/v7"; //  和风天气付费API前缀
 const hefengFreeApi = "https://devapi.qweather.com/v7"; //  和风天气免费API前缀
 const hefengWeather = `${hefengVIP ? hefengApi : hefengFreeApi}/weather/now?`; //  和风天气实时天气api

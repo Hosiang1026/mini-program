@@ -1,7 +1,7 @@
 /**
  * 数据配置表
  * Hello图床 https://www.helloimg.com
- * Hosiang1026/123456
+ * Hosiang1026/12345678
  * @charset UTF-8
  * @Version 1.0.3
  */

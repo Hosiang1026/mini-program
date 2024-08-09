@@ -26,26 +26,26 @@
       <view class="body-wrapper">
         <view class="list-wrapper">
           <view class="list">
-            <view>开发者</view>
-            <view>郝祥</view>
+            <view class="date-value">开发者</view>
+            <view class="date-value">郝祥</view>
+          </view>
+        </view>
+        <view class="list-wrapper">
+          <view class="list"> 
+          <view class="date-value">操作系统</view> 
+          <view class="date-value">{{system}}</view>
           </view>
         </view>
         <view class="list-wrapper">
           <view class="list">
-            <view>操作系统</view>
-            <view>{{system}}</view>
+            <view class="date-value">微信版本号</view>
+            <view class="date-value">{{version}}</view>
           </view>
         </view>
         <view class="list-wrapper">
           <view class="list">
-            <view>微信版本号</view>
-            <view>{{version}}</view>
-          </view>
-        </view>
-        <view class="list-wrapper">
-          <view class="list">
-            <view>小程序版本号</view>
-            <view>2.0.0</view>
+            <view class="date-value">小程序版本号</view>
+            <view class="date-value">2.1.20</view>
           </view>
         </view>
       </view>

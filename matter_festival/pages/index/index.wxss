@@ -17,14 +17,14 @@
   justify-content: space-around;
 }
 .header-text{
-  font-size: 32px;
+  font-size: 5vh;
   font-weight: 400;
   display: flex;
   justify-content: space-around;
 }
 .weather-time{
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 3vh;
   display: flex;
   justify-content: space-around;
 }
@@ -51,7 +51,7 @@
 
 /*body*/
 .body-wrapper{
-  padding: 18px 15px 0px 15px;
+  padding: 2.4vh 15px 1.3vh 15px;
 }
 .date-logo image{
   width: 107rpx;
@@ -70,6 +70,13 @@
   display: flex;
   align-items: center;
 }
+
+/* 点击效果 */
+.hover_btn{
+  position: relative;
+  top: 3rpx;
+}
+
 .date-text{
   height: 100rpx;
   display: flex;
@@ -77,8 +84,13 @@
   justify-content: space-around;
 }
 .date-value{
-  font-size: 50rpx;
-  color: #2f2f2f;
+  font-size: 3.5vh;
+}
+
+.date-value text {
+  background: -webkit-linear-gradient(left, #1620ac, #ee1123);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .datam{
@@ -143,7 +155,7 @@
   white-space: nowrap;
   position:absolute;
   top:0;
-  font-size:15px;
+  font-size:2.6vh;
   height:100rpx;
   line-height:100rpx;
 }

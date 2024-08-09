@@ -33,12 +33,6 @@
         "selectedIconPath": "/static/tabs/home-active.png"
       },
       {
-        "pagePath": "pages/wardrobe/wardrobe",
-        "text": "衣柜",
-        "iconPath": "/static/tabs/wardrobe-active.png",
-        "selectedIconPath": "/static/tabs/wardrobe-active.png"
-      },
-      {
         "pagePath": "pages/my/my",
         "text": "我的",
         "iconPath": "/static/tabs/my.png",

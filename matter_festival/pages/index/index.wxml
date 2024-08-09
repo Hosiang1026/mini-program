@@ -11,10 +11,10 @@
           <text>{{ todayFestival }}</text>
         </view>
         <view class="weather-time/FAT">
-          <text>{{ todaySolar }}</text>
+          <text>{{ todayLunar }}</text>
         </view>
         <view class="weather-time/FAT">
-          <text>{{ todayLunar }}</text>
+          <text>{{ todaySolar }}</text>
         </view>
       </view>
     </view>
@@ -31,9 +31,11 @@
 <view wx:if="{{items.length>0}}">
       <view wx:for="{{items}}" wx:key="items" wx:for-item="item" wx:for-index="itemIdx" class="subMain">
             <view class="body-wrapper">
-              <view class="date">
-                <view class="date-text">
-                <view class="date-value">{{item}}</view>
+              <view class="date" >
+                <view class="date-text" >
+                <view class="date-value">
+                <text>{{item}}</text>
+                </view>
                 </view>
               </view>
             </view>
