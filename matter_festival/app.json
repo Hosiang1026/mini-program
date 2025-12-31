@@ -3,6 +3,9 @@
     "pages/index/index",
     "pages/my/my"
   ],
+  "requiredPrivateInfos":[
+    "getLocation"
+  ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarTitleText": "",
@@ -10,7 +13,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于天气效果展示"
+      "desc": "你的位置信息将用于天气预报提示"
     }
   },
   "style": "v2",

@@ -17,7 +17,7 @@ App({
   globalData: {
     userInfo: null,
     innerAudioContext: "",
-    audioSrcArr: ["/static/music/chunxuqu.mp3","/static/music/newyear.mp3"], // 音频地址
+    audioSrcArr: ["/static/music/newyear.mp3","/static/music/nwjinxiao.mp3"], // 音频地址
   },
     // 初始化音频信息
     initAudeo() {

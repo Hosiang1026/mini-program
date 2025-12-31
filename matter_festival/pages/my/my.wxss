@@ -36,10 +36,10 @@
 .body-wrapper{
   margin-top: 32px;
   box-sizing: border-box;
-  padding: 20px 15px 0 15px;
+  padding: 23px 15px 0 15px;
 }
 .list-wrapper{
-  margin: 28px 0;
+  margin: 22px 0;
   height: 7.8vh;
 }
 
@@ -52,7 +52,7 @@
   color: #2f2f2f;
   padding: 8px 20px;
   font-size: 3.5vh;
-  height: 5vh;
+  height: 4.8vh;
 }
 
 .date-value {

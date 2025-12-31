@@ -42,7 +42,7 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.4",
+  "libVersion": "3.12.1",
   "appid": "wx3571842dc2567dc2",
   "projectname": "matter_festival",
   "condition": {},

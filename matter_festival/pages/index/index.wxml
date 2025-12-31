@@ -2,19 +2,33 @@
 <view class="root-wrapper">
   <view class="root">
     <view class="header-wrapper">
-      <image style="height: 40vh;z-index: -999;position:absolute;" mode="heightFix" src="/static/images/newyear.jpg"></image>
+      <image style="height: 40vh;z-index: -999; position:absolute;" mode="heightFix" src="/static/images/newyear.jpg"></image>
       <view class="header-content-wrapper">
         <view class="header-text">
-          <text>重要节日</text>
+          <text>{{ titleName }}</text>
         </view>
-        <view class="weather-time/FAT">
+
+  <!-- <view class="weather-time/FAT">
           <text>{{ todayFestival }}</text>
+        </view>
+        -->
+
+        <!-- 节日 - 横向滚动 -->
+        <view class="weather-time/FAT">
+          <!-- 横向滚动容器 -->
+          <view class="horizontal-scroll-container" wx:if="{{isScroll}}">
+            <text class="festival-text horizontal-scroll-content">{{todayFestival}}</text>
+          </view>
+          
+          <!-- 普通显示 -->
+          <text class="festival-text" wx:else>{{todayFestival}}</text>
+        </view>
+
+        <view class="weather-time/FAT">
+          <text>{{ todaySolar }}</text>
         </view>
         <view class="weather-time/FAT">
           <text>{{ todayLunar }}</text>
-        </view>
-        <view class="weather-time/FAT">
-          <text>{{ todaySolar }}</text>
         </view>
       </view>
     </view>
